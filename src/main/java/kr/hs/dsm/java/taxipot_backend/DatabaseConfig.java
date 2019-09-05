@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.sql.DataSource;
 
+
 @Configuration
 @MapperScan(basePackages = "kr.hs.dsm.java.taxipot_backend.dao")
 @EnableTransactionManagement
