@@ -5,6 +5,6 @@ import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
 
-public interface TaxipotRepository extends CrudRepository<TaxiPot, Integer> {
+public interface TaxipotRepository extends CrudRepository<TaxiPot, Long> {
     public List<TaxiPot> findAll();
 }
