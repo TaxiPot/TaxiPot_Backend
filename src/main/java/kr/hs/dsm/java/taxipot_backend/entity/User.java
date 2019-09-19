@@ -1,5 +1,8 @@
 package kr.hs.dsm.java.taxipot_backend.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -11,7 +14,6 @@ public class User {
 
     @Id
     String user_id;
-
     String user_password;
     int age;
     int gender;

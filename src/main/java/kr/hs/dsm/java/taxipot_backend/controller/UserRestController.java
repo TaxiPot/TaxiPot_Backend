@@ -5,6 +5,7 @@ import io.swagger.annotations.ApiResponses;
 import kr.hs.dsm.java.taxipot_backend.entity.User;
 import kr.hs.dsm.java.taxipot_backend.exception.AlreadyExistException;
 import kr.hs.dsm.java.taxipot_backend.exception.NotFoundException;
+import kr.hs.dsm.java.taxipot_backend.exception.WrongException;
 import kr.hs.dsm.java.taxipot_backend.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -54,6 +55,25 @@ public class UserRestController {
             throw new AlreadyExistException("Account Already Exist");
         } else {
             userRepository.save(user);
+        }
+    }
+
+    @ApiResponses(value ={
+            @ApiResponse(code = 401, message = "비밀번호가 틀렸습니다."),
+            @ApiResponse(code = 404, message = "해당 아이디를 찾을 수 없습니다.")
+    })
+    @RequestMapping(method = RequestMethod.PATCH, path="/{user_id}/change_pw")
+    public void changePW(@PathVariable(name = "user_id")String userId, @RequestParam String fromPW, @RequestParam String toPW) {
+        Optional<User> user = userRepository.findById(userId);
+        if(user.isPresent()) {
+            if(user.get().getUser_password().equals(fromPW)) {
+                user.get().setUser_password(toPW);
+                userRepository.save(user.get());
+            } else {
+                throw new WrongException("비밀번호가 틀렸습니다.");
+            }
+        } else {
+            throw new NotFoundException("유저 아이디를 찾을 수 없습니다.");
         }
     }
 }

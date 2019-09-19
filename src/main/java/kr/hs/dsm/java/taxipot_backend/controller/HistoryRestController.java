@@ -28,7 +28,7 @@ public class HistoryRestController {
     @RequestMapping(method = RequestMethod.POST, path = "/{id}/history")
     public int save(@RequestBody List<History> historyList, @PathVariable("id") String id) {
         int saveCount=0;
-        if (userRepository.findById(id) == null) {
+        if (userRepository.findById(id).isPresent()==false) {
             throw new NotFoundException("존재하지 않는 유저입니다.");
         }
         for(History item : historyList) {
