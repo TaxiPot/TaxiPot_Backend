@@ -8,4 +8,5 @@ import java.util.List;
 
 public interface HistoryRepository extends CrudRepository<History, EmbeddedHistory> {
     public List<History> findAll();
+    public List<History> findHistoriesByUserRoomIdUserId(String userId);
 }
