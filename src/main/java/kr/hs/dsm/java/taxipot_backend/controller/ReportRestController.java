@@ -21,7 +21,7 @@ public class ReportRestController {
     }
 
     @RequestMapping(method = RequestMethod.POST, path = "/report")
-    public List<Report> report(@RequestBody Report report) {
+    public List<Report> save(@RequestBody Report report) {
         System.out.println(report.getReportUserId());
         repository.save(report);
         return repository.findReportsByReportUserId(report.getReportUserId());

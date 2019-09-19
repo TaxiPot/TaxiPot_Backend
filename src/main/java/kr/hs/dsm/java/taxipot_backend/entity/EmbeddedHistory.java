@@ -1,17 +1,26 @@
 package kr.hs.dsm.java.taxipot_backend.entity;
 
+import lombok.Getter;
+import lombok.Setter;
+
+import javax.persistence.Column;
 import java.io.Serializable;
 
+@Getter
+@Setter
 public class EmbeddedHistory implements Serializable {
-    String user_id;
-    int room_id;
+    @Column(name = "user_id")
+    String userId;
+    @Column(name = "room_id")
+    Integer roomId;
 
     public EmbeddedHistory() {
     }
 
-    public EmbeddedHistory(String user_id, int room_id) {
-        super();
-        this.user_id = user_id;
-        this.room_id = room_id;
+    public EmbeddedHistory(String userId, Integer roomId) {
+        this.userId = userId;
+        this.roomId = roomId;
     }
+
+
 }
