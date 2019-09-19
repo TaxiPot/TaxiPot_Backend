@@ -23,7 +23,7 @@ public class UserRestController {
     }
 
     @RequestMapping(method = RequestMethod.GET, path = "/signin")
-    public User signIn(@RequestBody User param) {
+    public User signIn(@ModelAttribute User param) {
         Optional<User> optionalUser = userRepository.findById(param.getUser_id());
         User user = null;
         try{

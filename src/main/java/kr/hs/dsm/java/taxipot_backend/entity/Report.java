@@ -1,30 +1,43 @@
 package kr.hs.dsm.java.taxipot_backend.entity;
 
-import javax.persistence.EmbeddedId;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "report")
+@IdClass(ReportKey.class)
 public class Report {
-    @EmbeddedId
-    EmbeddedReport user_id;
+    @Id
+    @Column(name = "report_user_id")
+    String reportUserId;
+    @Id
+    @Column(name = "reported_user_id")
+    String reportedUserId;
+
     int reason_num;
 
     public Report() {
     }
 
-    public Report(EmbeddedReport user_id, int reason_num) {
-        this.user_id = user_id;
+    public Report(String reportUserId, String reportedUserId, int reason_num) {
+        this.reportUserId = reportUserId;
+        this.reportedUserId = reportedUserId;
         this.reason_num = reason_num;
     }
 
-    public EmbeddedReport getUser_id() {
-        return user_id;
+    public String getReportUserId() {
+        return reportUserId;
     }
 
-    public void setUser_id(EmbeddedReport user_id) {
-        this.user_id = user_id;
+    public void setReportUserId(String reportUserId) {
+        this.reportUserId = reportUserId;
+    }
+
+    public String getReportedUserId() {
+        return reportedUserId;
+    }
+
+    public void setReportedUserId(String reportedUserId) {
+        this.reportedUserId = reportedUserId;
     }
 
     public int getReason_num() {
