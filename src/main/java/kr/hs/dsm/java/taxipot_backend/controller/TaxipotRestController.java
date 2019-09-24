@@ -52,7 +52,7 @@ public class TaxipotRestController {
         }
     }
 
-    @RequestMapping(method = RequestMethod.GET, path = "/join")
+    @RequestMapping(method = RequestMethod.GET, path = "/findRoom")
     public List<TaxiPot> findTaxipotList(){
         return taxipotRepository.findAll();
     }

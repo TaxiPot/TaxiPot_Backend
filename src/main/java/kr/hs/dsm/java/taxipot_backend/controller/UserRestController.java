@@ -28,8 +28,8 @@ public class UserRestController {
     @ApiResponses(value = {
             @ApiResponse(code = 404, message = "아이디 혹은 패스워드가 잘못되었습니다.")
     })
-    @RequestMapping(method = RequestMethod.GET, path = "/signin")
-    public User signIn(@ModelAttribute User param) {
+    @RequestMapping(method = RequestMethod.POST, path = "/signin")
+    public User signIn(@RequestBody User param) {
         Optional<User> optionalUser = userRepository.findById(param.getUser_id());
         User user = null;
         try{
@@ -49,7 +49,7 @@ public class UserRestController {
             @ApiResponse(code = 409, message = "이미 존재하는 아이디입니다.")
     })
     @RequestMapping(method = RequestMethod.POST, path="/signup")
-    public void signUp(@RequestBody User user) throws AlreadyExistException {
+    public void signUp(@RequestBody User user) {
         Optional<User> optionalUser = userRepository.findById(user.getUser_id());
         if(optionalUser.isPresent()) {
             throw new AlreadyExistException("Account Already Exist");
