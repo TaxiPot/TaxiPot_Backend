@@ -2,7 +2,6 @@ package kr.hs.dsm.java.taxipot_backend.entity;
 
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity

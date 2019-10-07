@@ -6,5 +6,7 @@ import org.springframework.data.repository.CrudRepository;
 import java.util.List;
 
 public interface TaxipotRepository extends CrudRepository<TaxiPot, Integer> {
-    public List<TaxiPot> findAll();
+    List<TaxiPot> findAll();
+    List<TaxiPot> findByDepartTimeLessThanEqual(long depart_time);
+    List<TaxiPot> findByDepartTimeGreaterThanEqual(long depart_time);
 }

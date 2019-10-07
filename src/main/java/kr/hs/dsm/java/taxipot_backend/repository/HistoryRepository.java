@@ -7,6 +7,6 @@ import org.springframework.data.repository.CrudRepository;
 import java.util.List;
 
 public interface HistoryRepository extends CrudRepository<History, EmbeddedHistory> {
-    public List<History> findAll();
-    public List<History> findHistoriesByUserRoomIdUserId(String userId);
+    List<History> findAll();
+    List<History> findHistoriesByUserRoomIdUserId(String userId);
 }

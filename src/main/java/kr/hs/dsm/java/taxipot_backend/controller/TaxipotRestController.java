@@ -9,6 +9,8 @@ import kr.hs.dsm.java.taxipot_backend.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -53,7 +55,18 @@ public class TaxipotRestController {
     }
 
     @RequestMapping(method = RequestMethod.GET, path = "/findRoom")
-    public List<TaxiPot> findTaxipotList(){
-        return taxipotRepository.findAll();
+    public List<TaxiPot> findTaxipotList(@RequestParam long depart_time, @RequestParam float start_latitude, @RequestParam float start_longitude, @RequestParam float end_latitude, @RequestParam float end_longitude, @RequestParam float radius){
+        List<TaxiPot> list = taxipotRepository.findByDepartTimeGreaterThanEqual(depart_time);
+        List<TaxiPot> correctList = new ArrayList<>();
+        for(TaxiPot item : list) {
+            // 출발/목적지의 위치를 구해 일정 반경 안에 있는 방 목록을 리스트에 추가.
+        }
+        return correctList;
     }
+
+    @RequestMapping(method = RequestMethod.GET, path = "/test")
+    public TaxiPot test() {
+        return taxipotRepository.save(new TaxiPot(new Date().getTime()));
+    }
+
 }

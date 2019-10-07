@@ -7,6 +7,6 @@ import org.springframework.data.repository.CrudRepository;
 import java.util.List;
 
 public interface ReportRepository extends CrudRepository<Report, ReportKey> {
-    public List<Report> findAll();
-    public List<Report> findReportsByReportUserId(String report_id);
+    List<Report> findAll();
+    List<Report> findReportsByReportUserId(String report_id);
 }

@@ -1,7 +1,6 @@
 package kr.hs.dsm.java.taxipot_backend.controller;
 
 import kr.hs.dsm.java.taxipot_backend.entity.BugReport;
-import kr.hs.dsm.java.taxipot_backend.entity.User;
 import kr.hs.dsm.java.taxipot_backend.exception.NotFoundException;
 import kr.hs.dsm.java.taxipot_backend.repository.BugReportRepository;
 import kr.hs.dsm.java.taxipot_backend.repository.UserRepository;
