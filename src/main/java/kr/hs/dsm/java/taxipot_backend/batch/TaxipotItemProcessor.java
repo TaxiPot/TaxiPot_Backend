@@ -6,6 +6,7 @@ import org.springframework.batch.item.ItemProcessor;
 public class TaxipotItemProcessor implements ItemProcessor<TaxiPot, TaxiPot> {
     @Override
     public TaxiPot process(TaxiPot taxiPot) throws Exception {
+        System.out.println("process");
         return taxiPot;
     }
 }

@@ -4,20 +4,14 @@ import kr.hs.dsm.java.taxipot_backend.entity.TaxiPot;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
-import org.springframework.batch.core.StepContribution;
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
 import org.springframework.batch.core.configuration.annotation.JobScope;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
 import org.springframework.batch.core.configuration.annotation.StepScope;
-import org.springframework.batch.core.scope.context.ChunkContext;
-import org.springframework.batch.core.step.tasklet.Tasklet;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.batch.item.database.JdbcCursorItemReader;
 import org.springframework.batch.item.database.JpaItemWriter;
-import org.springframework.batch.item.database.JpaPagingItemReader;
 import org.springframework.batch.item.database.builder.JdbcCursorItemReaderBuilder;
-import org.springframework.batch.item.database.builder.JpaPagingItemReaderBuilder;
-import org.springframework.batch.repeat.RepeatStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -37,6 +31,12 @@ public class JobConfiguration {
     private EntityManagerFactory entityManagerFactory;
     @Autowired
     private DataSource dataSource;
+    @Autowired
+    private JdbcCursorItemReader<TaxiPot> reader;
+    @Autowired
+    private ItemProcessor<TaxiPot, TaxiPot> processor;
+    @Autowired
+    private JpaItemWriter<TaxiPot> writer;
 
     private static final String query = "select * from taxipot";
     private static final int chunkSize = 10;
@@ -52,18 +52,16 @@ public class JobConfiguration {
     @JobScope
     public Step stepBuild() {
         return stepBuilderFactory.get("stepBuild")
-                .tasklet(new Tasklet() {
-                    @Override
-                    public RepeatStatus execute(StepContribution stepContribution, ChunkContext chunkContext) throws Exception {
-                        return RepeatStatus.FINISHED;
-                    }
-                })
+                .<TaxiPot,TaxiPot>chunk(chunkSize)
+                .reader(reader)
+                .processor(processor)
+                .writer(writer)
                 .build();
     }
 
     @Bean
     @StepScope
-    public JdbcCursorItemReader<TaxiPot> reader() {
+    public JdbcCursorItemReader<TaxiPot> readerBuild() {
         return new JdbcCursorItemReaderBuilder<TaxiPot>()
                 .sql(query)
                 .rowMapper(new BeanPropertyRowMapper<>(TaxiPot.class))
@@ -75,13 +73,13 @@ public class JobConfiguration {
 
     @Bean
     @StepScope
-    public ItemProcessor<TaxiPot, TaxiPot> paging() {
+    public ItemProcessor<TaxiPot, TaxiPot> processorBuild() {
         return new TaxipotItemProcessor();
     }
 
     @Bean
     @StepScope
-    public JpaItemWriter<TaxiPot> writer() {
+    public JpaItemWriter<TaxiPot> writerBuild() {
         JpaItemWriter<TaxiPot> item = new JpaItemWriter<>();
         item.setEntityManagerFactory(entityManagerFactory);
         return item;
