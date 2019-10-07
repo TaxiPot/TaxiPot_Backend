@@ -2,6 +2,8 @@ package kr.hs.dsm.java.taxipot_backend.batch;
 
 import kr.hs.dsm.java.taxipot_backend.entity.TaxiPot;
 import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
@@ -43,6 +45,7 @@ public class JobConfiguration {
 
     @Bean
     public Job jobBuild() {
+        LoggerFactory.getLogger(JobConfiguration.class).info("Job 생성중 에러?");
         return jobBuilderFactory.get("jobBuild")
                 .start(stepBuild())
                 .build();

@@ -29,7 +29,7 @@ public class ScheduleTask {
     @Autowired
     private static JobLauncher jobLauncher;
     @Autowired
-    private static Job job;
+    private Job job;
 
     @Scheduled(cron="*/15 * * * * *")
     public void saveAllHistory(){

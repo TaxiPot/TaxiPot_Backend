@@ -12,5 +12,4 @@ public class TaxipotBackendApplicationTests {
     @Test
     public void contextLoads() throws Exception{
     }
-
 }
