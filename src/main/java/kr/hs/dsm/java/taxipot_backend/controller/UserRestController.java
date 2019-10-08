@@ -28,6 +28,7 @@ public class UserRestController {
     @ApiResponses(value = {
             @ApiResponse(code = 404, message = "아이디 혹은 패스워드가 잘못되었습니다.")
     })
+
     @RequestMapping(method = RequestMethod.POST, path = "/signin")
     public User signIn(@RequestBody User param) {
         Optional<User> optionalUser = userRepository.findById(param.getUser_id());

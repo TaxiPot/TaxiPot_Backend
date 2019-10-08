@@ -55,18 +55,28 @@ public class TaxipotRestController {
     }
 
     @RequestMapping(method = RequestMethod.GET, path = "/findRoom")
-    public List<TaxiPot> findTaxipotList(@RequestParam long depart_time, @RequestParam float start_latitude, @RequestParam float start_longitude, @RequestParam float end_latitude, @RequestParam float end_longitude, @RequestParam float radius){
-        List<TaxiPot> list = taxipotRepository.findByDepartTimeGreaterThanEqual(depart_time);
+    public List<TaxiPot> findTaxipotList(@RequestParam long depart_time, @RequestParam float start_latitude, @RequestParam float start_longitude, @RequestParam float end_latitude, @RequestParam float end_longitude, @RequestParam float radius, @RequestParam int age){
+        List<TaxiPot> list = taxipotRepository.findByDepartTimeGreaterThanEqualAndEndAgeGreaterThanEqualAndAndStartAgeIsLessThanEqual(depart_time,age,age);
         List<TaxiPot> correctList = new ArrayList<>();
         for(TaxiPot item : list) {
-            // 출발/목적지의 위치를 구해 일정 반경 안에 있는 방 목록을 리스트에 추가.
+            if(isInRadious(start_longitude,item.getStart_longtitude(),start_latitude,item.getStart_latitude(),radius)&&isInRadious(end_longitude,item.getEnd_longtitude(),end_latitude,item.getEnd_latitude(),radius)) {
+                correctList.add(item);
+            }
         }
-        return correctList;
+        return list;
     }
 
     @RequestMapping(method = RequestMethod.GET, path = "/test")
     public TaxiPot test() {
-        return taxipotRepository.save(new TaxiPot(new Date().getTime()));
+        return taxipotRepository.save(new TaxiPot(new Date(2020,3,5).getTime()));
+    }
+
+    private double getCoordinates(float x, float y){
+        return Math.pow((double)x,2) + Math.pow((double)y,2);
+    }
+
+    private boolean isInRadious(float x1, float x2, float y1, float y2, float radius) {
+        return Math.pow((double)radius,2) >= getCoordinates(x1-x2,y1-y2);
     }
 
 }

@@ -21,8 +21,10 @@ public class TaxiPot {
     long departTime;
     boolean gender_man;
     boolean gender_woman;
-    int start_age;
-    int end_age = 100;
+    @Column(name = "start_age")
+    int startAge;
+    @Column(name="end_age")
+    int endAge = 100;
     String first_seat;
     String second_seat;
     String third_seat;
@@ -55,8 +57,8 @@ public class TaxiPot {
         this.departTime = departTime;
         this.gender_man = gender_man;
         this.gender_woman = gender_woman;
-        this.start_age = start_age;
-        this.end_age = end_age;
+        this.startAge = start_age;
+        this.endAge = end_age;
         this.first_seat = first_seat;
         this.second_seat = second_seat;
         this.third_seat = third_seat;
@@ -70,8 +72,8 @@ public class TaxiPot {
         this.departTime = departTime;
         this.gender_man = true;
         this.gender_woman = true;
-        this.start_age = 0;
-        this.end_age = 100;
+        this.startAge = 0;
+        this.endAge = 100;
         this.first_seat = null;
         this.second_seat = null;
         this.third_seat = null;
@@ -98,6 +100,38 @@ public class TaxiPot {
         return fourth_seat;
     }
 
+    public float getStart_longtitude() {
+        return start_longtitude;
+    }
+
+    public float getStart_latitude() {
+        return start_latitude;
+    }
+
+    public float getEnd_longtitude() {
+        return end_longtitude;
+    }
+
+    public float getEnd_latitude() {
+        return end_latitude;
+    }
+
+    public boolean isGender_man() {
+        return gender_man;
+    }
+
+    public boolean isGender_woman() {
+        return gender_woman;
+    }
+
+    public int getStart_age() {
+        return startAge;
+    }
+
+    public int getEnd_age() {
+        return endAge;
+    }
+
     @Override
     public String toString() {
         return "{\n" +
@@ -105,7 +139,7 @@ public class TaxiPot {
                 departTime +
                 "\n" +
                 "  \"end_age\": " +
-                end_age +
+                endAge +
                 "\n" +
                 "  \"end_latitude\": " +
                 end_latitude +
@@ -132,7 +166,7 @@ public class TaxiPot {
                 second_seat +
                 "\n" +
                 "  \"start_age\": " +
-                start_age +
+                startAge +
                 "\n" +
                 "  \"start_latitude\": " +
                 start_latitude +

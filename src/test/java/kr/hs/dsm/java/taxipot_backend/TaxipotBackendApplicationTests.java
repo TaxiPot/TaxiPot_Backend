@@ -1,24 +1,19 @@
 package kr.hs.dsm.java.taxipot_backend;
 
-import kr.hs.dsm.java.taxipot_backend.entity.TaxiPot;
-import kr.hs.dsm.java.taxipot_backend.repository.TaxipotRepository;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
 
-import java.util.Date;
-
-
-@RunWith(SpringRunner.class)
-@DataJpaTest
 public class TaxipotBackendApplicationTests {
-    @Autowired
-    TaxipotRepository repository;
     @Test
     public void contextLoads() throws Exception{
-        repository.save(new TaxiPot(new Date().getTime()));
+        System.out.println(isInRadious(0,5,0,12,13));
+    }
+    private double getCoordinates(float x, float y){
+        return Math.pow((double)x,2) + Math.pow((double)y,2);
+    }
+
+    private boolean isInRadious(float x1, float x2, float y1, float y2, float radius) {
+        System.out.println(Math.pow((double)radius,2));
+        System.out.println(getCoordinates(x1-x2,y1-y2));
+        return Math.pow((double)radius,2) >= getCoordinates(x1-x2,y1-y2);
     }
 }
