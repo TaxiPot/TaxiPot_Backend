@@ -28,15 +28,15 @@ public class TaxipotRestController {
     }
 
     @RequestMapping(method = RequestMethod.POST, path = "/makeroom")
-    public void makeTaxipot(@RequestBody TaxiPot taxiPot) {
-        taxipotRepository.save(taxiPot);
+    public TaxiPot makeTaxipot(@RequestBody TaxiPot taxiPot) {
+        return taxipotRepository.save(taxiPot);
     }
 
     @ApiResponses(value = {
             @ApiResponse(code = 404, message = "유저 아이디 혹은 방을 찾을 수 없음.")
     })
     @RequestMapping(method = RequestMethod.PATCH, path = "/{roomId}/join")
-    public void joinTaxipot(@PathVariable("roomId")Integer roomId, @RequestParam(name = "user_id") String userId, @RequestParam(name = "seat_num")int seatNum) {
+    public TaxiPot joinTaxipot(@PathVariable("roomId")Integer roomId, @RequestParam(name = "user_id") String userId, @RequestParam(name = "seat_num")int seatNum) {
         if(!userRepository.findById(userId).isPresent()) {
             throw new NotFoundException("유저 아이디를 찾을 수 없음.");
         }
@@ -52,6 +52,7 @@ public class TaxipotRestController {
         } else {
             throw new NotFoundException("방을 찾을 수 없음");
         }
+        return joinPot.get();
     }
 
     @RequestMapping(method = RequestMethod.GET, path = "/findRoom")

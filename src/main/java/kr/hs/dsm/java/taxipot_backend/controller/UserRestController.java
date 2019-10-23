@@ -8,6 +8,8 @@ import kr.hs.dsm.java.taxipot_backend.exception.NotFoundException;
 import kr.hs.dsm.java.taxipot_backend.exception.WrongException;
 import kr.hs.dsm.java.taxipot_backend.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -50,13 +52,14 @@ public class UserRestController {
             @ApiResponse(code = 409, message = "이미 존재하는 아이디입니다.")
     })
     @RequestMapping(method = RequestMethod.POST, path="/signup")
-    public void signUp(@RequestBody User user) {
+    public User signUp(@RequestBody User user) {
         Optional<User> optionalUser = userRepository.findById(user.getUser_id());
         if(optionalUser.isPresent()) {
             throw new AlreadyExistException("Account Already Exist");
         } else {
             userRepository.save(user);
         }
+        return user;
     }
 
     @ApiResponses(value ={
@@ -64,7 +67,7 @@ public class UserRestController {
             @ApiResponse(code = 404, message = "해당 아이디를 찾을 수 없습니다.")
     })
     @RequestMapping(method = RequestMethod.PATCH, path="/{user_id}/change_pw")
-    public void changePW(@PathVariable(name = "user_id")String userId, @RequestParam String fromPW, @RequestParam String toPW) {
+    public User changePW(@PathVariable(name = "user_id")String userId, @RequestParam String fromPW, @RequestParam String toPW) {
         Optional<User> user = userRepository.findById(userId);
         if(user.isPresent()) {
             if(user.get().getUser_password().equals(fromPW)) {
@@ -76,5 +79,6 @@ public class UserRestController {
         } else {
             throw new NotFoundException("유저 아이디를 찾을 수 없습니다.");
         }
+        return user.get();
     }
 }

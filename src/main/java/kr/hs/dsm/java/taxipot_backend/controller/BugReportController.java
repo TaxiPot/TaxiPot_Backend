@@ -24,11 +24,12 @@ public class BugReportController {
     }
 
     @RequestMapping(method = RequestMethod.POST, path = "/api/postbug")
-    public void postBug(@RequestBody BugReport bugReport) {
+    public BugReport postBug(@RequestBody BugReport bugReport) {
         if(userRepository.findById(bugReport.getUser_id()).isPresent()) {
             repository.save(bugReport);
         } else {
             throw new NotFoundException("유저 아이디를 찾을 수 없습니다.");
         }
+        return bugReport;
     }
 }
