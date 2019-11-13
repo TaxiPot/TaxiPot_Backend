@@ -69,7 +69,7 @@ public class TaxipotRestController {
 
     @RequestMapping(method = RequestMethod.GET, path = "/test")
     public TaxiPot test() {
-        return taxipotRepository.save(new TaxiPot(new Date(2020,3,5).getTime()));
+        return taxipotRepository.save(new TaxiPot(new Date().getTime()));
     }
 
     private double getCoordinates(float x, float y){

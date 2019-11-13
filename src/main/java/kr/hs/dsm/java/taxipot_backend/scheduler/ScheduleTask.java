@@ -40,7 +40,7 @@ public class ScheduleTask {
 
     private History historyBuild(String userId, TaxiPot item) {
         if (userId != null) {
-            return new History(new EmbeddedHistory(userId, item.getRoom_id()), item.getFirst_seat(), item.getSecond_seat(), item.getThird_seat(), item.getFourth_seat());
+            return item.toHistory(userId);
         } else {
             return null;
         }

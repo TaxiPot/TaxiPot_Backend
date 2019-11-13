@@ -179,4 +179,9 @@ public class TaxiPot {
                 "\n" +
                 "}";
     }
+
+    public History toHistory(String userId) {
+        EmbeddedHistory key = new EmbeddedHistory(userId,room_id);
+        return new History(key,first_seat,second_seat,third_seat,fourth_seat,start_longtitude,start_latitude,end_longtitude,end_latitude,departTime);
+    }
 }
