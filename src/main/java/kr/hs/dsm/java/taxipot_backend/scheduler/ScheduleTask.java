@@ -27,9 +27,9 @@ public class ScheduleTask {
     @Scheduled(cron = "*/15 * * * * *")
     public void saveAllHistory() {
         Date date = new Date();
-        logger.info("현재 시각 : {}", dateFormat.format(date));
+        //logger.info("현재 시각 : {}", dateFormat.format(date));
         List<TaxiPot> saveHistoryList = taxipotRepository.findByDepartTimeLessThanEqual(date.getTime());
-        logger.info("History에 저장할 방 목록 : {}", saveHistoryList);
+        //logger.info("History에 저장할 방 목록 : {}", saveHistoryList);
         for (TaxiPot item : saveHistoryList) {
             saveToHistory(historyBuild(item.getFirst_seat(), item));
             saveToHistory(historyBuild(item.getSecond_seat(), item));

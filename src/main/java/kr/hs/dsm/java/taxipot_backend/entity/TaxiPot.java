@@ -132,6 +132,18 @@ public class TaxiPot {
         return endAge;
     }
 
+    public long getDepartTime() {
+        return departTime;
+    }
+
+    public int getStartAge() {
+        return startAge;
+    }
+
+    public int getEndAge() {
+        return endAge;
+    }
+
     @Override
     public String toString() {
         return "{\n" +

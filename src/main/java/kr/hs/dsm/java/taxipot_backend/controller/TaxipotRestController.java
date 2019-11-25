@@ -43,10 +43,10 @@ public class TaxipotRestController {
         Optional<TaxiPot> joinPot = taxipotRepository.findById(roomId);
         if(joinPot.isPresent()) {
             switch (seatNum) {
-                case 1 : {joinPot.get().setFirst_seat(userId); break;}
-                case 2 : {joinPot.get().setSecond_seat(userId); break;}
-                case 3 : {joinPot.get().setThird_seat(userId); break;}
-                case 4 : {joinPot.get().setFourth_seat(userId); break;}
+                case 0 : {joinPot.get().setFirst_seat(userId); break;}
+                case 1 : {joinPot.get().setSecond_seat(userId); break;}
+                case 2 : {joinPot.get().setThird_seat(userId); break;}
+                case 3 : {joinPot.get().setFourth_seat(userId); break;}
             }
             taxipotRepository.save(joinPot.get());
         } else {
@@ -56,12 +56,14 @@ public class TaxipotRestController {
     }
 
     @RequestMapping(method = RequestMethod.GET, path = "/findRoom")
-    public List<TaxiPot> findTaxipotList(@RequestParam long depart_time, @RequestParam float start_latitude, @RequestParam float start_longitude, @RequestParam float end_latitude, @RequestParam float end_longitude, @RequestParam float radius, @RequestParam int age){
+    public List<TaxiPot> findTaxipotList(@RequestParam long depart_time, @RequestParam float start_latitude, @RequestParam float start_longitude, @RequestParam float end_latitude, @RequestParam float end_longitude, @RequestParam float radius, @RequestParam int age, @RequestParam boolean isMan){
         List<TaxiPot> list = taxipotRepository.findByDepartTimeGreaterThanEqualAndEndAgeGreaterThanEqualAndAndStartAgeIsLessThanEqual(depart_time,age,age);
         List<TaxiPot> correctList = new ArrayList<>();
         for(TaxiPot item : list) {
-            if(isInRadious(start_longitude,item.getStart_longtitude(),start_latitude,item.getStart_latitude(),radius)&&isInRadious(end_longitude,item.getEnd_longtitude(),end_latitude,item.getEnd_latitude(),radius)) {
-                correctList.add(item);
+            if(isMan == item.isGender_man() || (!isMan) == item.isGender_woman()) {
+                if (isInRadious(start_longitude, item.getStart_longtitude(), start_latitude, item.getStart_latitude(), radius) && isInRadious(end_longitude, item.getEnd_longtitude(), end_latitude, item.getEnd_latitude(), radius)) {
+                    correctList.add(item);
+                }
             }
         }
         return list;
