@@ -146,50 +146,22 @@ public class TaxiPot {
 
     @Override
     public String toString() {
-        return "{\n" +
-                "  \"departTime\": " +
-                departTime +
-                "\n" +
-                "  \"end_age\": " +
-                endAge +
-                "\n" +
-                "  \"end_latitude\": " +
-                end_latitude +
-                "\n" +
-                "  \"end_longtitude\": " +
-                end_longtitude +
-                "\n" +
-                "  \"first_seat\": " +
-                first_seat +
-                "\n" +
-                "  \"fourth_seat\": " +
-                fourth_seat +
-                "\n" +
-                "  \"gender_man\": " +
-                gender_man +
-                "\n" +
-                "  \"gender_woman\": " +
-                gender_woman +
-                "\n" +
-                "  \"room_id\": " +
-                room_id +
-                "\n" +
-                "  \"second_seat\": " +
-                second_seat +
-                "\n" +
-                "  \"start_age\": " +
-                startAge +
-                "\n" +
-                "  \"start_latitude\": " +
-                start_latitude +
-                "\n" +
-                "  \"start_longtitude\": " +
-                start_longtitude +
-                "\n" +
-                "  \"third_seat\": " +
-                third_seat +
-                "\n" +
-                "}";
+        return "TaxiPot{" +
+                "room_id=" + room_id +
+                ", start_longtitude=" + start_longtitude +
+                ", start_latitude=" + start_latitude +
+                ", end_longtitude=" + end_longtitude +
+                ", end_latitude=" + end_latitude +
+                ", departTime=" + departTime +
+                ", gender_man=" + gender_man +
+                ", gender_woman=" + gender_woman +
+                ", startAge=" + startAge +
+                ", endAge=" + endAge +
+                ", first_seat='" + first_seat + '\'' +
+                ", second_seat='" + second_seat + '\'' +
+                ", third_seat='" + third_seat + '\'' +
+                ", fourth_seat='" + fourth_seat + '\'' +
+                '}';
     }
 
     public History toHistory(String userId) {

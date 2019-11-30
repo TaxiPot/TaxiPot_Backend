@@ -57,16 +57,23 @@ public class TaxipotRestController {
 
     @RequestMapping(method = RequestMethod.GET, path = "/findRoom")
     public List<TaxiPot> findTaxipotList(@RequestParam long depart_time, @RequestParam float start_latitude, @RequestParam float start_longitude, @RequestParam float end_latitude, @RequestParam float end_longitude, @RequestParam float radius, @RequestParam int age, @RequestParam boolean isMan){
+        System.out.println("departTime : " + depart_time + " start_latitude : " + start_latitude + " startLongitude : " + start_longitude + " endLatitude : " +end_latitude + " endLongitude : " + end_longitude + " radius : " + radius + "age : " + age + "isMan : " + isMan);
         List<TaxiPot> list = taxipotRepository.findByDepartTimeGreaterThanEqualAndEndAgeGreaterThanEqualAndAndStartAgeIsLessThanEqual(depart_time,age,age);
         List<TaxiPot> correctList = new ArrayList<>();
         for(TaxiPot item : list) {
+            //System.out.println("filtering... \n before taxiPot : " + item.toString() + "\n");
             if(isMan == item.isGender_man() || (!isMan) == item.isGender_woman()) {
+                System.out.println("start distance : " + getCoordinates(item.getStart_longtitude() - start_longitude, item.getStart_latitude() - start_latitude) + "\narrive distance : " + getCoordinates(item.getEnd_longtitude() - start_longitude, item.getEnd_latitude() - start_latitude) + "\n");
                 if (isInRadious(start_longitude, item.getStart_longtitude(), start_latitude, item.getStart_latitude(), radius) && isInRadious(end_longitude, item.getEnd_longtitude(), end_latitude, item.getEnd_latitude(), radius)) {
                     correctList.add(item);
+                    System.out.println("add : " + item.toString() + "\n");
+                } else {
+                    System.out.println("remove : " + item.toString() + "\n");
                 }
             }
         }
-        return list;
+        System.out.println("result : " + correctList);
+        return correctList;
     }
 
     @RequestMapping(method = RequestMethod.GET, path = "/test")
