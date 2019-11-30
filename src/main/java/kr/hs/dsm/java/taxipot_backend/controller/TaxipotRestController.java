@@ -3,6 +3,7 @@ package kr.hs.dsm.java.taxipot_backend.controller;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import kr.hs.dsm.java.taxipot_backend.entity.TaxiPot;
+import kr.hs.dsm.java.taxipot_backend.entity.User;
 import kr.hs.dsm.java.taxipot_backend.exception.NotFoundException;
 import kr.hs.dsm.java.taxipot_backend.repository.TaxipotRepository;
 import kr.hs.dsm.java.taxipot_backend.repository.UserRepository;
@@ -37,11 +38,17 @@ public class TaxipotRestController {
     })
     @RequestMapping(method = RequestMethod.PATCH, path = "/{roomId}/join")
     public TaxiPot joinTaxipot(@PathVariable("roomId")Integer roomId, @RequestParam(name = "user_id") String userId, @RequestParam(name = "seat_num")int seatNum) {
-        if(!userRepository.findById(userId).isPresent()) {
+        Optional<User> optUser = userRepository.findById(userId);
+        if(!optUser.isPresent()) {
             throw new NotFoundException("유저 아이디를 찾을 수 없음.");
         }
+        User user = optUser.get();
         Optional<TaxiPot> joinPot = taxipotRepository.findById(roomId);
         if(joinPot.isPresent()) {
+            user.setRoomId(roomId);
+            user.setSeatNum(seatNum);
+            System.out.println(user.toString());
+            userRepository.save(user);
             switch (seatNum) {
                 case 0 : {joinPot.get().setFirst_seat(userId); break;}
                 case 1 : {joinPot.get().setSecond_seat(userId); break;}

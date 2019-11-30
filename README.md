@@ -10,4 +10,8 @@ JPA를 이용한 Repository 패턴을 사용할 예정입니다.
 + Spring Boot
 + Rest
 + Lombok
-+ AWS EC2
++ Web Socket
+
+### 참고자료
+
++ https://victorydntmd.tistory.com/253
