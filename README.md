@@ -4,14 +4,15 @@ JPA를 이용한 Repository 패턴을 사용할 예정입니다.
 
 ### Library / Framework / Tools
 + JPA
-+ MariaDB
-+ HeidiSQL
-+ Swagger 2
-+ Spring Boot
++ MariaDB : [https://mariadb.org](https://mariadb.org/)
++ HeidiSQL : [https://www.heidisql.com](https://www.heidisql.com/)
++ Swagger 2 : https://swagger.io/
++ Spring Boot : https://spring.io/
 + Rest
-+ Lombok
-+ Web Socket
++ Lombok : https://projectlombok.org/
++ Web Socket : https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-websocket
 
 ### 참고자료
 
 + https://victorydntmd.tistory.com/253
++ https://spring.io/guides
