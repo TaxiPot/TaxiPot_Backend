@@ -168,4 +168,14 @@ public class TaxiPot {
         EmbeddedHistory key = new EmbeddedHistory(userId,room_id);
         return new History(key,first_seat,second_seat,third_seat,fourth_seat,start_longtitude,start_latitude,end_longtitude,end_latitude,departTime);
     }
+
+    public String getUserOfSeatNum(int seatNum) {
+        switch (seatNum) {
+            case 0 : return first_seat;
+            case 1 : return second_seat;
+            case 2 : return third_seat;
+            case 3 : return fourth_seat;
+            default: throw new IndexOutOfBoundsException("없는 좌석이에요.");
+        }
+    }
 }

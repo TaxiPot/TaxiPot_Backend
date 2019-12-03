@@ -57,6 +57,15 @@ public class User {
         this.seatNum = seatNum;
     }
 
+    public int getTrust_point() {
+        return trust_point;
+    }
+
+    public User setTrust_point(int trust_point) {
+        this.trust_point = trust_point;
+        return this;
+    }
+
     @Override
     public String toString() {
         return "User{" +

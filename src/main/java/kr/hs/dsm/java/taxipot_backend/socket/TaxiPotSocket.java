@@ -15,6 +15,7 @@ public class TaxiPotSocket {
     static Logger logger = LoggerFactory.getLogger(TaxiPotSocket.class);
     private static WebSocketSession[] sessions = new WebSocketSession[4];
     private int socketId;
+    private int[][] confidenceCheck = new int[4][4];
 
     private TaxiPotSocket(int socket_id) {
         socketId = socket_id;
@@ -76,6 +77,10 @@ public class TaxiPotSocket {
         }
     }
 
+    public void messageBack(WebSocketSession session, String message) {
+        sendMessage(session,session,message);
+    }
+
     private int getSessionIndex(WebSocketSession session) {
         for (int i = 0; i < 4; i++) {
             if (isSessionNull(sessions[i])) continue;
@@ -96,5 +101,29 @@ public class TaxiPotSocket {
 
     private boolean isSessionNull(WebSocketSession session) {
         return session == null;
+    }
+
+    public void initChangeConfidence(int target) {
+        for(int i=0 ;i<4; i++) {
+            confidenceCheck[i][target] = 0;
+            confidenceCheck[target][i] = 0;
+        }
+    }
+
+    public void initChangeConfidence(WebSocketSession session) {
+        int target = getSessionIndex(session);
+        for(int i=0 ;i<4; i++) {
+            confidenceCheck[i][target] = 0;
+            confidenceCheck[target][i] = 0;
+        }
+    }
+
+    public boolean checkChangeConfidence(WebSocketSession session, int point, int target) {
+        if(confidenceCheck[getSessionIndex(session)][target]>=1) return true;
+        return false;
+    }
+
+    public void applyChangeConfidence(WebSocketSession session, int target) {
+        confidenceCheck[getSessionIndex(session)][target] = 1;
     }
 }
